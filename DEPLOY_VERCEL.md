@@ -18,6 +18,17 @@ Buat file [vercel.json](vercel.json) di root direktori proyek Anda:
 {
   "version": 2,
   "framework": null,
+  "env": {
+    "APP_CONFIG_CACHE": "/tmp/config.php",
+    "APP_EVENTS_CACHE": "/tmp/events.php",
+    "APP_PACKAGES_CACHE": "/tmp/packages.php",
+    "APP_ROUTES_CACHE": "/tmp/routes.php",
+    "APP_SERVICES_CACHE": "/tmp/services.php",
+    "VIEW_COMPILED_PATH": "/tmp",
+    "LOG_CHANNEL": "stderr",
+    "SESSION_DRIVER": "cookie",
+    "CACHE_STORE": "array"
+  },
   "functions": {
     "api/index.php": {
       "runtime": "vercel-php@0.7.4"
@@ -38,7 +49,7 @@ Buat folder baru bernama `api/` di root proyek, dan buat file [api/index.php](ap
 <?php
 
 // Arahkan request aset statis public secara langsung jika dipanggil
-if (file_exists(__DIR__ . '/../public' . $_SERVER['REQUEST_URI'])) {
+if (is_file(__DIR__ . '/../public' . $_SERVER['REQUEST_URI'])) {
     return false;
 }
 

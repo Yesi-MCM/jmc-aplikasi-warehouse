@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "outputDirectory": ".",
   "framework": null,
   "functions": {
     "api/index.php": {
@@ -8,10 +7,6 @@
     }
   },
   "routes": [
-    {
-      "src": "/build/(.*)",
-      "dest": "/public/build/$1"
-    },
     {
       "src": "/(.*)",
       "dest": "/api/index.php"

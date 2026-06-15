@@ -17,7 +17,6 @@ Buat file [vercel.json](vercel.json) di root direktori proyek Anda:
 ```json
 {
   "version": 2,
-  "outputDirectory": ".",
   "framework": null,
   "functions": {
     "api/index.php": {
@@ -25,10 +24,6 @@ Buat file [vercel.json](vercel.json) di root direktori proyek Anda:
     }
   },
   "routes": [
-    {
-      "src": "/build/(.*)",
-      "dest": "/public/build/$1"
-    },
     {
       "src": "/(.*)",
       "dest": "/api/index.php"
@@ -95,8 +90,12 @@ Ada dua cara utama untuk mendeploy aplikasi ke Vercel:
 2. Masuk ke dashboard [Vercel](https://vercel.com).
 3. Klik **Add New** -> **Project**.
 4. Impor repositori GitHub proyek Anda.
-5. Pada bagian **Environment Variables**, tambahkan variabel-variabel penting (lihat daftar di bawah).
-6. Klik **Deploy**. Vercel akan otomatis melakukan build frontend (`npm run build`) dan meluncurkan aplikasi PHP Anda.
+5. Sebelum mendeploy, atur **Output Directory** di **Project Settings**:
+   - Buka bagian **Settings** -> **Build & Development Settings**.
+   - Aktifkan toggle **Override** pada bagian **Output Directory**.
+   - Isi dengan nilai **`public`** (bukan `dist` atau `.`).
+6. Pada bagian **Environment Variables**, tambahkan variabel-variabel penting (lihat daftar di bawah).
+7. Klik **Deploy**. Vercel akan otomatis melakukan build frontend (`npm run build`) dan meluncurkan aplikasi PHP Anda.
 
 ### Opsi B: Menggunakan Vercel CLI
 1. Pasang Vercel CLI secara global:

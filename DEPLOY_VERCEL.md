@@ -19,7 +19,7 @@ Buat file [vercel.json](vercel.json) di root direktori proyek Anda:
   "version": 2,
   "functions": {
     "api/index.php": {
-      "runtime": "vercel-php@8.3"
+      "runtime": "vercel-php@0.7.4"
     }
   },
   "routes": [

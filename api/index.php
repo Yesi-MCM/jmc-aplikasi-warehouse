@@ -1,7 +1,7 @@
 <?php
 
 // Forward static public assets directly
-if (file_exists(__DIR__ . '/../public' . $_SERVER['REQUEST_URI'])) {
+if (is_file(__DIR__ . '/../public' . $_SERVER['REQUEST_URI'])) {
     return false;
 }
 

@@ -14,6 +14,7 @@ use App\Models\OutgoingGoods;
 use App\Models\StockOpname;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -79,3 +80,23 @@ Route::middleware(['auth'])->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+// Rute sementara untuk menjalankan migrasi & seeder di Vercel (Produksi)
+Route::get('/run-migration', function () {
+    try {
+        Artisan::call('migrate:fresh', [
+            '--seed' => true,
+            '--force' => true, // Wajib di produksi
+        ]);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Database migrated and seeded successfully!',
+            'output' => Artisan::output(),
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Migration failed: ' . $e->getMessage(),
+        ], 500);
+    }
+});

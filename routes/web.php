@@ -22,16 +22,16 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
-        $totalItems = Item::count();
+        $totalItems = Item::count('*');
         $totalStockQty = InventoryStock::sum('quantity');
         
-        $totalStockValue = InventoryStock::selectRaw('SUM(quantity * price) as val')
+        $totalStockValue = InventoryStock::selectRaw('SUM(quantity * price) as val', [])
             ->first()
             ->val ?? 0;
 
         $recentIncoming = IncomingGoods::with(['unit', 'creator'])->latest()->take(5)->get();
         $recentOutgoing = OutgoingGoods::with(['unit', 'creator'])->latest()->take(5)->get();
-        $activeOpnames = StockOpname::where('status', 'draft')->count();
+        $activeOpnames = StockOpname::where('status', '=', 'draft', 'and')->count('*');
 
         return Inertia::render('Dashboard', [
             'metrics' => [

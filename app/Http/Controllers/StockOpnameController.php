@@ -21,8 +21,8 @@ class StockOpnameController extends Controller
             ->get()
             ->map(function ($so) {
                 // Calculate checked percentage
-                $totalDetails = $so->details()->count();
-                $checkedDetails = $so->details()->where('physical_quantity', '>=', 0)->count(); // if default is -1 or unchecked
+                $totalDetails = $so->details()->count('*');
+                $checkedDetails = $so->details()->where('physical_quantity', '>=', 0, 'and')->count('*'); // if default is -1 or unchecked
                 
                 // Qty comparison
                 $totalSystemQty = $so->details()->sum('system_quantity');
@@ -76,7 +76,7 @@ class StockOpnameController extends Controller
         $totalPhysicalQty = $details->sum('physical_qty');
         $totalLocations = $details->pluck('location')->unique()->count();
         $totalItems = $details->count();
-        $checkedItems = $stockOpname->details()->where('physical_quantity', '>=', 0)->whereNotNull('physical_quantity')->count();
+        $checkedItems = $stockOpname->details()->where('physical_quantity', '>=', 0, 'and')->whereNotNull('physical_quantity')->count('*');
         $percentage = $totalItems > 0 ? round(($checkedItems / $totalItems) * 100) : 0;
 
         return Inertia::render('StockOpname/Show', [

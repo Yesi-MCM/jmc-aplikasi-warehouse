@@ -17,7 +17,6 @@ Buat file [vercel.json](vercel.json) di root direktori proyek Anda:
 ```json
 {
   "version": 2,
-  "outputDirectory": "public",
   "framework": null,
   "functions": {
     "api/index.php": {

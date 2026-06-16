@@ -36,6 +36,14 @@ Buat file [vercel.json](vercel.json) di root direktori proyek Anda:
   },
   "routes": [
     {
+      "src": "/index.php",
+      "dest": "/api/index.php"
+    },
+    {
+      "src": "/$",
+      "dest": "/api/index.php"
+    },
+    {
       "handle": "filesystem"
     },
     {
